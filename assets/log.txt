@@ -1,0 +1,35 @@
+Import demo successfully!!!.
+Import media successfully!
+Failed to import pa_color Blue
+Failed to import pa_color Gray
+Failed to import pa_color Green
+Failed to import pa_size Large
+Failed to import pa_size Medium
+Failed to import pa_color Red
+Failed to import pa_size Small
+Failed to import pa_color Yellow
+Import demo successfully!!!.
+Set home page successfully!
+Import menus successfully!
+Import wp options successfully!
+Import widget successfully!
+Import values to option key "blogname" successfully!
+Import values to option key "blogdescription" successfully!
+Import values to option key "date_format" successfully!
+Import values to option key "time_format" successfully!
+Import values to option key "default_category" successfully!
+Import values to option key "posts_per_page" successfully!
+Import values to option key "show_on_front" successfully!
+Import values to option key "page_for_privacy_policy" successfully!
+Import values to option key "vc_roles[administrator][post_types][_state]" successfully!
+Import values to option key "vc_roles[administrator][post_types][post]" successfully!
+Import values to option key "vc_roles[administrator][post_types][product]" successfully!
+Import values to option key "vc_roles[administrator][post_types][portfolio]" successfully!
+Import values to option key "vc_roles[administrator][post_types][cms-mega-menu]" successfully!
+Import values to option key "vc_roles[administrator][post_types][header_banner]" successfully!
+Import values to option key "vc_roles[administrator][post_types][header_top]" successfully!
+Import values to option key "vc_roles[administrator][post_types][footer]" successfully!
+Import values to option key "woosw_page_id" successfully!
+Import values to option key "options[page]" successfully!
+Crop images successfully!
+Import term meta successfully!
