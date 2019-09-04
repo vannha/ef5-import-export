@@ -12,7 +12,7 @@
 if (!defined('ABSPATH')) {
     exit();
 }
-define('EF5_TEXT_DOMAIN','ef5-import-export');
+define('EF5_IE_TEXT_DOMAIN','ef5-import-export');
 
 if (!class_exists('EF5_Import_Export')) {
 
@@ -80,7 +80,7 @@ if (!class_exists('EF5_Import_Export')) {
             $current_theme = wp_get_theme();
             $this->theme_name = $current_theme->get('Name');
             $this->theme_text_domain = $current_theme->get('TextDomain');
-            add_submenu_page('tools.php', esc_html__('Import Demo', EF5_TEXT_DOMAIN), esc_html__('Import Demo', EF5_TEXT_DOMAIN), 'manage_options', 'ef5-import', array($this, 'ef5_import_demo_page'));
+            add_submenu_page('tools.php', esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), 'manage_options', 'ef5-import', array($this, 'ef5_import_demo_page'));
         }
 
         public function ef5_import_demo_page()
@@ -229,7 +229,7 @@ if (!class_exists('EF5_Import_Export')) {
         function pp_load_textdomain()
         {
             $language_folder = basename(dirname(__FILE__)) . '/languages';
-            load_plugin_textdomain(EF5_TEXT_DOMAIN, false, $language_folder);
+            load_plugin_textdomain(EF5_IE_TEXT_DOMAIN, false, $language_folder);
         }
 
 

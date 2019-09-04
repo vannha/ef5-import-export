@@ -30,7 +30,7 @@ function ef5_ie_content_import($options)
 
 function ef5_ie_add_placeholder_image(){
 
-    $attachment_exists = get_page_by_title(esc_html__('Image Placeholder', EF5_TEXT_DOMAIN), OBJECT, 'attachment');
+    $attachment_exists = get_page_by_title(esc_html__('Image Placeholder', EF5_IE_TEXT_DOMAIN), OBJECT, 'attachment');
 
     if($attachment_exists)
         return $attachment_exists->ID ;
@@ -44,7 +44,7 @@ function ef5_ie_add_placeholder_image(){
     $attachment = array(
         'guid'           => $wp_upload_dir['url'] . '/theme-core-ie.jpg',
         'post_mime_type' => 'image/jpeg',
-        'post_title'     => esc_html__('Image Placeholder', EF5_TEXT_DOMAIN),
+        'post_title'     => esc_html__('Image Placeholder', EF5_IE_TEXT_DOMAIN),
         'post_status'    => 'inherit'
     );
 

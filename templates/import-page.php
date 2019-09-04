@@ -27,12 +27,12 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
         <div class="ef5-field-info <?php echo esc_attr($_notice); ?>">
             <table class="ef5-server-info">
                 <tr>
-                    <th><?php esc_html_e('PHP Version:', EF5_TEXT_DOMAIN); ?></th>
+                    <th><?php esc_html_e('PHP Version:', EF5_IE_TEXT_DOMAIN); ?></th>
                     <td><i class="dashicons dashicons-yes" style="color: #31f531"></i></td>
                     <td style="color: #0d880b"><?php echo esc_html($php_ver); ?></td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e('Memory Limit:', EF5_TEXT_DOMAIN) ?></th>
+                    <th><?php esc_html_e('Memory Limit:', EF5_IE_TEXT_DOMAIN) ?></th>
                     <?php if ($memory_limit >= 128): ?>
                         <td><i class="dashicons dashicons-yes" style="color: #31f531"></i></td>
                         <td style="color: #0d880b"><?php echo sprintf(esc_html__('Currently: %s (Mb)', ''), $memory_limit); ?></td>
@@ -42,7 +42,7 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
                     <?php endif; ?>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e('Max. Execution Time:', EF5_TEXT_DOMAIN) ?></th>
+                    <th><?php esc_html_e('Max. Execution Time:', EF5_IE_TEXT_DOMAIN) ?></th>
                     <?php if ($max_time >= 60 || $max_time === 0): ?>
                         <td><i class="dashicons dashicons-yes" style="color: #31f531"></i></td>
                         <td style="color: #0d880b"><?php echo sprintf(esc_html__('Currently: %s (s)', ''), $max_time_text); ?></td>
@@ -52,7 +52,7 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
                     <?php endif; ?>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e('Max. Post Size:', EF5_TEXT_DOMAIN) ?></th>
+                    <th><?php esc_html_e('Max. Post Size:', EF5_IE_TEXT_DOMAIN) ?></th>
                     <?php if ($post_max_size >= 32): ?>
                         <td><i class="dashicons dashicons-yes" style="color: #31f531"></i></td>
                         <td style="color: #0d880b"><?php echo sprintf(esc_html__('Currently: %s (Mb)', ''), $post_max_size); ?></td>
@@ -65,13 +65,13 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
             <div class="ef5-advance-options">
                 <ul class="ef5-options">
                     <li class="ef5-show-manual-import"><span
-                                class="dashicons dashicons-media-spreadsheet"></span><?php echo esc_html__("Manual Import", EF5_TEXT_DOMAIN) ?>
+                                class="dashicons dashicons-media-spreadsheet"></span><?php echo esc_html__("Manual Import", EF5_IE_TEXT_DOMAIN) ?>
                     </li>
                     <li class="ef5-show-regenerate-thumbnail"><span
-                                class="dashicons dashicons-images-alt"></span><?php echo esc_html__("Regenerate Thumbnails", EF5_TEXT_DOMAIN) ?>
+                                class="dashicons dashicons-images-alt"></span><?php echo esc_html__("Regenerate Thumbnails", EF5_IE_TEXT_DOMAIN) ?>
                     </li>
                     <li class="ef5-advance-reset"><span
-                                class="dashicons dashicons-update"></span><?php echo esc_html__("Reset Site", EF5_TEXT_DOMAIN) ?>
+                                class="dashicons dashicons-update"></span><?php echo esc_html__("Reset Site", EF5_IE_TEXT_DOMAIN) ?>
                     </li>
                 </ul>
                 <span class="dashicons dashicons-admin-generic"></span>
@@ -104,7 +104,7 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
                                         <img src="<?php echo $url . $demo . '/screenshot.png' ?>" alt="">
                                         <a class="ef5-ie-preview" href="<?php echo esc_attr($info_demo['link']) ?>"
                                            target="_blank">
-                                            <span><?php esc_html_e('View Demo', EF5_TEXT_DOMAIN) ?></span>
+                                            <span><?php esc_html_e('View Demo', EF5_IE_TEXT_DOMAIN) ?></span>
                                         </a>
                                     </div>
                                     <div class="ef5-ie-meta">
@@ -113,14 +113,14 @@ $_notice = ($memory_limit < 128 || ($max_time < 60 && $max_time !==0 )|| $post_m
                                         <input type="hidden" name="action" value="ef5-import">
                                         <button class="ef5-import-btn ef5-import-submit button button-primary"
                                                 name="ef5-import-submit"
-                                                value="<?php echo base64_encode($demo) ?>"><?php echo $demo_installed === true ? esc_html__('Update Demo', EF5_TEXT_DOMAIN) : esc_html__('Import Demo', EF5_TEXT_DOMAIN) ?></button>
+                                                value="<?php echo base64_encode($demo) ?>"><?php echo $demo_installed === true ? esc_html__('Update Demo', EF5_IE_TEXT_DOMAIN) : esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN) ?></button>
                                         <?php
                                         if ($demo_installed === true) {
                                             wp_nonce_field('ef5-reset', '_wp_nonce');
                                             ?>
                                             <button class="ef5-import-btn ef5-delete-demo button button-primary"
                                                     name="ef5-ie-delete-demo"
-                                                    value="<?php echo base64_encode($demo) ?>"><?php esc_html_e('Reset Site', EF5_TEXT_DOMAIN) ?></button>
+                                                    value="<?php echo base64_encode($demo) ?>"><?php esc_html_e('Reset Site', EF5_IE_TEXT_DOMAIN) ?></button>
                                             <?php
                                         }
                                         ?>

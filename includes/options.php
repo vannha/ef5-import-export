@@ -100,11 +100,11 @@ function ef5_ie_options_import($options)
                 break;
             case 'menus':
                 ef5_ie_options_set_menus($option);
-                $import_result[] = esc_html__('Import menus successfully!', EF5_TEXT_DOMAIN);
+                $import_result[] = esc_html__('Import menus successfully!', EF5_IE_TEXT_DOMAIN);
                 break;
             case 'wp-options':
                 ef5_ie_options_set_wp_options($option);
-                $import_result[] = esc_html__('Import wp options successfully!', EF5_TEXT_DOMAIN);
+                $import_result[] = esc_html__('Import wp options successfully!', EF5_IE_TEXT_DOMAIN);
                 break;
         }
     }

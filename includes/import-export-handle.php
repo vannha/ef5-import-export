@@ -269,7 +269,7 @@ if (!class_exists('EF5_Import_Export_handle')) {
                         wp_update_attachment_metadata($image->ID, $metadata);
                     }
                 }
-                $import_result[] = esc_html__('Crop images successfully!', EF5_TEXT_DOMAIN);
+                $import_result[] = esc_html__('Crop images successfully!', EF5_IE_TEXT_DOMAIN);
             }
         }
 

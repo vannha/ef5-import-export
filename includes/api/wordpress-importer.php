@@ -102,15 +102,15 @@ if (class_exists('WP_Importer')) {
 		function import_start($file)
 		{
 			if (!is_file($file)) {
-				$import_result[] = esc_html__('Sorry, there has been an error.', EF5_TEXT_DOMAIN);
-				$import_result[] = esc_html__('The file does not exist, please try again.', EF5_TEXT_DOMAIN);
+				$import_result[] = esc_html__('Sorry, there has been an error.', EF5_IE_TEXT_DOMAIN);
+				$import_result[] = esc_html__('The file does not exist, please try again.', EF5_IE_TEXT_DOMAIN);
 				return;
 			}
 
 			$import_data = $this->parse($file);
 
 			if (is_wp_error($import_data)) {
-				$import_result[] = esc_html__('Sorry, there has been an error.', EF5_TEXT_DOMAIN);
+				$import_result[] = esc_html__('Sorry, there has been an error.', EF5_IE_TEXT_DOMAIN);
 				$import_result[] = $import_data->get_error_message();
 				return;
 			}
@@ -145,7 +145,7 @@ if (class_exists('WP_Importer')) {
 			wp_defer_term_counting(false);
 			wp_defer_comment_counting(false);
 			global $import_result;
-			$import_result[] = esc_html__('Import demo successfully!!!.', EF5_TEXT_DOMAIN);
+			$import_result[] = esc_html__('Import demo successfully!!!.', EF5_IE_TEXT_DOMAIN);
 			do_action('import_end');
 		}
 
@@ -176,7 +176,7 @@ if (class_exists('WP_Importer')) {
 
 			$this->version = $import_data['version'];
 			if ($this->version > $this->max_wxr_version) {
-				$import_result[] = esc_html__('This WXR file (version ' . $import_data['version'] . ') may not be supported by this version of the importer. Please consider updating.', EF5_TEXT_DOMAIN);
+				$import_result[] = esc_html__('This WXR file (version ' . $import_data['version'] . ') may not be supported by this version of the importer. Please consider updating.', EF5_IE_TEXT_DOMAIN);
 			}
 
 			$this->get_authors_from_import($import_data);
@@ -202,7 +202,7 @@ if (class_exists('WP_Importer')) {
 					$login = sanitize_user($post['post_author'], true);
 					if (empty($login)) {
 						global $import_result;
-						$import_result[] = esc_html__('Failed to import author ' . $post['post_author'] . '. Their posts will be attributed to the current user.', EF5_TEXT_DOMAIN);
+						$import_result[] = esc_html__('Failed to import author ' . $post['post_author'] . '. Their posts will be attributed to the current user.', EF5_IE_TEXT_DOMAIN);
 						continue;
 					}
 
@@ -748,13 +748,13 @@ if (class_exists('WP_Importer')) {
 
 			// no nav_menu term associated with this menu item
 			if (!$menu_slug) {
-				$import_result[] = esc_html__('Menu item skipped due to missing menu slug.', EF5_TEXT_DOMAIN);
+				$import_result[] = esc_html__('Menu item skipped due to missing menu slug.', EF5_IE_TEXT_DOMAIN);
 				return;
 			}
 
 			$menu_id = term_exists($menu_slug, 'nav_menu');
 			if (!$menu_id) {
-				$import_result[] = esc_html__('Menu item skipped due to invalid menu slug: ' . $menu_slug, EF5_TEXT_DOMAIN);
+				$import_result[] = esc_html__('Menu item skipped due to invalid menu slug: ' . $menu_slug, EF5_IE_TEXT_DOMAIN);
 				return;
 			} else {
 				$menu_id = is_array($menu_id) ? $menu_id['term_id'] : $menu_id;
