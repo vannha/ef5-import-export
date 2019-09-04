@@ -75,7 +75,7 @@ if (!class_exists('EF5_Import_Export')) {
 
         }
 
-        function ef5_ie_menu_handle()
+        function ef5_ie_menu_handle() 
         {
             $current_theme = wp_get_theme();
             $this->theme_name = $current_theme->get('Name');
