@@ -80,7 +80,11 @@ if (!class_exists('EF5_Import_Export')) {
             $current_theme = wp_get_theme();
             $this->theme_name = $current_theme->get('Name');
             $this->theme_text_domain = $current_theme->get('TextDomain');
-            add_submenu_page('tools.php', esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), 'manage_options', 'ef5-import', array($this, 'ef5_import_demo_page'));
+            if (class_exists(class_exists('EF5Systems')) {
+                add_submenu_page($this->theme_text_domain, esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), 'manage_options', 'ef5-import', array($this, 'ef5_import_demo_page'));
+            } else {
+                add_submenu_page('tools.php', esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), esc_html__('Import Demo', EF5_IE_TEXT_DOMAIN), 'manage_options', 'ef5-import', array($this, 'ef5_import_demo_page'));
+            }
         }
 
         public function ef5_import_demo_page()
