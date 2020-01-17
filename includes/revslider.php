@@ -77,7 +77,7 @@ function ef5_ie_revslider_export($folder){
  */
 function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDummy = false){
 
-    $arrSlides = $slider->getSlidesForExport($useDummy);
+    $arrSlides = $slider->get_slides_for_export($useDummy);
     $arrStaticSlide = $slider->getStaticSlideForExport($useDummy);
 
     $usedCaptions = array();
