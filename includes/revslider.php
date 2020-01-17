@@ -222,16 +222,16 @@ function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDumm
     $usepcl = false;
     if(class_exists('ZipArchive')){
         $zip = new ZipArchive;
-        $success = $zip->open(RevSliderGlobals::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
+        $success = $zip->open(RevSliderSliderExport::$export_path_zip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
 
         if($success !== true)
-            throwError("Can't create zip file: ".RevSliderGlobals::$uploadsUrlExportZip);
+            throwError("Can't create zip file: ".RevSliderSliderExport::$export_path_zip);
 
     }else{
         //fallback to pclzip
         require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
 
-        $pclzip = new PclZip(RevSliderGlobals::$uploadsUrlExportZip);
+        $pclzip = new PclZip(RevSliderSliderExport::$export_path_zip);
 
         //either the function uses die() or all is cool
         $usepcl = true;
