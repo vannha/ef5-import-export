@@ -79,7 +79,8 @@ function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDumm
 
     //$arrSlides = $slider->getSlidesForExport($useDummy); // Rev Older V6
     $arrSlides = $slider->get_slides_for_export($useDummy); // Rev V6 or higher
-    $arrStaticSlide = $slider->getStaticSlideForExport($useDummy);
+    //$arrStaticSlide = $slider->getStaticSlideForExport($useDummy); // Rev older than v6
+    $arrStaticSlide = $slider->get_static_slide_for_export($useDummy); // Rev older than v6
 
     $usedCaptions = array();
     $usedAnimations = array();
