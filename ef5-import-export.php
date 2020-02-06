@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit();
 }
 define('EF5_IE_TEXT_DOMAIN','ef5-import-export');
-
+die('xxx');
 if (!class_exists('EF5_Import_Export')) {
 
     /**
