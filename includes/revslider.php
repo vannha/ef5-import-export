@@ -2,9 +2,9 @@
 /**
  * @Template: revslider.php
  * @since: 1.0.0
- * @author: the EF5 Team
+ * @author: KP
  * @descriptions:
- * @create: 01/01/2019
+ * @create: 28-Nov-17
  */
 if(!defined('ABSPATH')){
     die();
@@ -21,7 +21,7 @@ function ef5_ie_revslider_import($folder)
     $folder = trailingslashit($folder . '/revslider/');
 
     if(is_dir($folder)){
-        $slider = new RevSlider();
+        $slider = new RevSliderSliderImport();
 
         $files = scandir($folder);
 
@@ -34,7 +34,7 @@ function ef5_ie_revslider_import($folder)
 
             ob_start();
 
-            $slider->importSliderFromPost(true, true);
+            $slider->import_slider();
 
             $log[] = ob_get_clean();
             $import_result = $log;
@@ -44,6 +44,76 @@ function ef5_ie_revslider_import($folder)
 }
 
 function ef5_ie_revslider_export($folder){
+    global $wp_filesystem;
+
+    if(class_exists('RevSliderSlider')){
+        if(!is_dir($folder . '/revslider/'))
+            wp_mkdir_p($folder . '/revslider/');
+
+        $slider = new RevSliderSlider();
+        $arrSliders = $slider->get_sliders();
+
+        if ( $arrSliders ) {
+            foreach ( $arrSliders as $slider ) {
+                ef5_ie_revslider_export_slider($slider, $folder);
+            }
+        }
+    }
+}
+
+/**
+ * export slider from data, output a file for download
+ * RevSliderSliderExport::export_slider()
+ */
+function ef5_ie_revslider_export_slider($slider, $folder){
+    $id = $slider->id;
+    $slider_export = new RevSliderSliderExport();
+
+    //slider needs to be initialized :)
+    if($id > 0){
+        $slider_export->init_by_id($id);
+    }
+    
+    //check if an update is needed
+    if(version_compare($slider_export->get_param(array('settings', 'version')), get_option('revslider_update_revision', '6.0.0'), '<')){
+        $upd = new RevSliderPluginUpdate();
+        $upd->upgrade_slider_to_latest($slider_export);
+        $slider_export->init_by_id($id);
+    }
+    
+    $slider_export->set_parameters();
+    $slider_export->remove_image_ids();
+    $slider_export->remove_background_image();
+    
+    $slider_export->add_used_images();
+    $slider_export->add_used_videos();
+    $slider_export->add_used_navigations();
+    $slider_export->add_used_svg();
+    $slider_export->modify_used_data();
+    
+    $slider_export->serialize_export_data();
+    $slider_export->serialize_navigation_data();
+    $slider_export->prepare_caption_css();
+    $slider_export->serialize_animation_data();
+    
+    $slider_export->create_export_zip();
+    $slider_export->add_svg_to_zip();
+    $slider_export->add_images_videos_to_zip();
+    $slider_export->add_slider_export_to_zip();
+    $slider_export->add_animations_to_zip();
+    $slider_export->add_styles_to_zip();
+    $slider_export->add_navigation_to_zip();
+    $slider_export->add_static_styles_to_zip();
+    $slider_export->add_info_to_zip();
+    $slider_export->close_export_zip();
+    // $slider_export->push_zip_to_client();
+    rename($slider_export->export_path_zip, $folder . '/revslider/' . $slider->get_alias() . '.zip');
+    $slider_export->delete_export_zip();
+
+    return $slider_export->export_path_zip;
+}
+
+function old_ef5_ie_revslider_export($folder){
     global $wp_filesystem;
 
     if(class_exists('RevSlider')){
@@ -75,12 +145,10 @@ function ef5_ie_revslider_export($folder){
  *
  * export slider from data, output a file for download
  */
-function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDummy = false){
+function old_ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDummy = false){
 
-    //$arrSlides = $slider->getSlidesForExport($useDummy); // Rev Older V6
-    $arrSlides = $slider->get_slides_for_export($useDummy); // Rev V6 or higher
-    //$arrStaticSlide = $slider->getStaticSlideForExport($useDummy); // Rev older than v6
-    $arrStaticSlide = $slider->get_static_slide_for_export($useDummy); // Rev older than v6
+    $arrSlides = $slider->getSlidesForExport($useDummy);
+    $arrStaticSlide = $slider->getStaticSlideForExport($useDummy);
 
     $usedCaptions = array();
     $usedAnimations = array();
@@ -222,10 +290,8 @@ function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDumm
     $usepcl = false;
     if(class_exists('ZipArchive')){
         $zip = new ZipArchive;
-        
-        
-        $success = $zip->open(RevSliderSliderExport::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
-        //$success = $zip->open(RevSliderGlobals::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
+        $success = $zip->open(RevSliderGlobals::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
+
         if($success !== true)
             throwError("Can't create zip file: ".RevSliderGlobals::$uploadsUrlExportZip);
 
