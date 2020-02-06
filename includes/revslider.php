@@ -222,7 +222,9 @@ function ef5_ie_revslider_export_slider($slider, $alias, $sliderParams, $useDumm
     $usepcl = false;
     if(class_exists('ZipArchive')){
         $zip = new ZipArchive;
-        $success = $zip->open($zip->export_path_zip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
+        
+        
+        $success = $zip->open(RevSliderSliderExport::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
         //$success = $zip->open(RevSliderGlobals::$uploadsUrlExportZip, ZIPARCHIVE::CREATE | ZipArchive::OVERWRITE);
         if($success !== true)
             throwError("Can't create zip file: ".RevSliderGlobals::$uploadsUrlExportZip);
