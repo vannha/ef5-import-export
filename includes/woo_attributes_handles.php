@@ -238,13 +238,15 @@ if(!function_exists("ef5_woo_attributes_term_import")){
                 $product->set_attributes($atts);
                 $product->save();
                 //fix product variation
-                $variations = get_posts(array('post_name__in'=>$product_data['variation'],'limit'=>-1));
-                foreach ($variations as $variation)
-                {
-                    wp_update_post([
-                        'ID' => $variation->ID,
-                        'post_parent' => $product->get_id()
-                    ]);
+                if(isset($product_data['variation'])){
+                    $variations = get_posts(array('post_name__in'=>$product_data['variation'],'limit'=>-1));
+                    foreach ($variations as $variation)
+                    {
+                        wp_update_post([
+                            'ID' => $variation->ID,
+                            'post_parent' => $product->get_id()
+                        ]);
+                    }
                 }
             }
 
