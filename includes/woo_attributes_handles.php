@@ -137,19 +137,20 @@ if (!function_exists('ef5_woo_attributes_import')) {
                         unset($atts_data["tax"][$attribute->attribute_name]);
                 }
             }
-            foreach ($atts_data["tax"] as $slug => $att)
-            {
-                if(empty($att['data']))
-                    continue;
-                $woo_atts = $att['data'];
-                //insert attributes;
-                wc_create_attribute(array(
-                    'name'=>$woo_atts['attribute_label'],
-                    'slug'=>$woo_atts['attribute_name'],
-                    'type'=>$woo_atts['attribute_type'],
-                    'order_by'=>$woo_atts['attribute_orderby'],
-                    'has_archives'=>$woo_atts['attribute_public']
-                ));
+            if( !empty($atts_data["tax"]) ){
+                foreach ($atts_data["tax"] as $slug => $att){
+                    if(empty($att['data']))
+                        continue;
+                    $woo_atts = $att['data'];
+                    //insert attributes;
+                    wc_create_attribute(array(
+                        'name'=>$woo_atts['attribute_label'],
+                        'slug'=>$woo_atts['attribute_name'],
+                        'type'=>$woo_atts['attribute_type'],
+                        'order_by'=>$woo_atts['attribute_orderby'],
+                        'has_archives'=>$woo_atts['attribute_public']
+                    ));
+                }
             }
             update_option("ef5_ie_term_imported","not_imported");
         }
@@ -163,41 +164,39 @@ if(!function_exists("ef5_woo_attributes_term_import")){
             $data = file_get_contents($file);
             $atts_data = json_decode($data, true);
             $attributes = wc_get_attribute_taxonomies();
-            if(is_array($attributes))
-            {
-                foreach ($attributes as $attribute)
-                {
+            if(is_array($attributes)){
+                foreach ($attributes as $attribute){
                     if(array_key_exists($attribute->attribute_name,$atts_data["tax"]))
                         unset($atts_data["tax"][$attribute->attribute_name]);
                 }
             }
-            foreach ($atts_data["tax"] as $slug => $att)
-            {
-                if(empty($att['terms']))
-                    continue;
-                foreach ($att['terms'] as $term)
-                {
-                    if(empty($term['fields']) || empty($term['fields']['taxonomy']))
+            if( !empty($atts_data["tax"]) ){
+                foreach ($atts_data["tax"] as $slug => $att){
+                    if(empty($att['terms']))
                         continue;
-                    $tax = get_taxonomy($term['fields']['taxonomy']);
-                    if(!$tax instanceof WP_Taxonomy)
-                        return;
-                    $result_insert_term = wp_insert_term($term['fields']['name'],$term['fields']['taxonomy'],array(
-                        'description'=>$term['fields']['description'],
-                        'parent'=>$term['fields']['parent'],
-                        'slug'=>$term['fields']['slug'],
-                    ));
-                    if(is_array($result_insert_term))
+                    foreach ($att['terms'] as $term)
                     {
-                        $term_id = $result_insert_term['term_id'];
-                        foreach ($term['meta'] as $key => $value)
+                        if(empty($term['fields']) || empty($term['fields']['taxonomy']))
+                            continue;
+                        $tax = get_taxonomy($term['fields']['taxonomy']);
+                        if(!$tax instanceof WP_Taxonomy)
+                            return;
+                        $result_insert_term = wp_insert_term($term['fields']['name'],$term['fields']['taxonomy'],array(
+                            'description'=>$term['fields']['description'],
+                            'parent'=>$term['fields']['parent'],
+                            'slug'=>$term['fields']['slug'],
+                        ));
+                        if(is_array($result_insert_term))
                         {
-                            update_term_meta($term_id,$key,$value);
+                            $term_id = $result_insert_term['term_id'];
+                            foreach ($term['meta'] as $key => $value)
+                            {
+                                update_term_meta($term_id,$key,$value);
+                            }
                         }
                     }
                 }
             }
-
             $products_data = $atts_data['products'];
             $log = [
                 'products'=>[],
